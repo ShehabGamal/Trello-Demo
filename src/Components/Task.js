@@ -57,8 +57,8 @@ function Task(props) {
                                                         </div>  
                                                     </div>
                                                     </Display>
-                                                    }</div>}}
-            )};
+                                                    }</div>}else{return undefined}}
+            )}else{return undefined};
 });
 
     return (
