@@ -118,6 +118,24 @@ const editTaskChecker=(taskid)=>{
         });
   setLists(updateList);
 };
+  const resetList = (listid)=>{
+    const updateList=lists.map((list)=>{
+      if(list.listid===listid){
+        list.addcheck=false;
+        list.focuscheck=false;
+      }
+      return list
+    });
+    setLists(updateList)
+  }
+
+const swapList=(fromIndex,toIndex,cardid)=>{
+  const updatedList = lists.filter((list)=>{return list.listid!==cardid});
+  const [currentList]= lists.filter((list)=>{return list.listid===cardid});
+  updatedList.splice(toIndex,0,currentList);
+  setLists(updatedList)
+  
+}
 
   return (
     <Board lists={lists}
@@ -130,6 +148,8 @@ const editTaskChecker=(taskid)=>{
            deleteList={deleteList}
            editListTitle={editListTitle}
            deleteTask={deleteTask}
+           resetList={resetList}
+           swapList={swapList}
            />
   );
 }

@@ -9,6 +9,7 @@ import { FaXmark } from "react-icons/fa6";
 
 
 
+
 const Display =styled.div`
 background:#ffffff;
 font-size:14px;
@@ -31,6 +32,8 @@ font-family: 'Montserrat', sans-serif;
 function Task(props) {
     const [text,setText]=useState("");
     const {id,lists,globalcheck,setGlobalCheck,boardcheck,setBoardCheck,editTaskChecker,editTask,deleteTask}=props;
+    
+
     const handleSubmit = (z,taskid)=>{
         z.preventDefault();
         if(text){

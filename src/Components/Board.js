@@ -29,7 +29,7 @@ function Board(props) {
     const [boardcheck,setBoardCheck] = useState(false);
     const [globalcheck,setGlobalCheck]=useState(true);
     const [text,setText]= useState("");
-    const {lists,addList,addChecker,focusChecker,addTask,editTaskChecker,editTask,deleteList,editListTitle,deleteTask} = props;
+    const {lists,addList,addChecker,focusChecker,addTask,editTaskChecker,editTask,deleteList,editListTitle,deleteTask,resetList,swapList} = props;
     const handleSubmit = (e)=>{
         e.preventDefault();
         if(text){
@@ -39,7 +39,7 @@ function Board(props) {
     }
     return (
         <Body>
-            {lists.length>0?<Card lists={lists}
+            {lists.length>0?lists.map((list,index)=>{return <Card lists={lists}
                                   focusChecker={focusChecker}
                                   addChecker={addChecker} 
                                   addTask={addTask} 
@@ -52,7 +52,16 @@ function Board(props) {
                                   deleteList={deleteList}
                                   editListTitle={editListTitle}
                                   deleteTask={deleteTask}
-                                  />:""}
+                                  cardid={list.listid}
+                                  cardindex={index}
+                                  focuscheck={list.focuscheck}
+                                  addcheck={list.addcheck}
+                                  title={list.title}
+                                  tasks={list.tasks}
+                                  key={list.listid}
+                                  resetList={resetList}
+                                  swapList={swapList}
+                                  />}):""}
             {boardcheck&&globalcheck?
                     <Form onSubmit={handleSubmit} >
                         <TextArea type="text"  placeholder="Enter List Name..." dir="auto" maxLength="512" onChange={(e)=>{setText(e.target.value)}} autoFocus/>
