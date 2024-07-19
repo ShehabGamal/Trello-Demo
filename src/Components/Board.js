@@ -29,7 +29,7 @@ function Board(props) {
     const [boardcheck,setBoardCheck] = useState(false);
     const [globalcheck,setGlobalCheck]=useState(true);
     const [text,setText]= useState("");
-    const {lists,addList,addChecker,focusChecker,addTask,editTaskChecker,editTask,deleteList,editListTitle,deleteTask,resetList,swapList} = props;
+    const {lists,addList,addChecker,focusChecker,addTask,editTaskChecker,editTask,deleteList,editListTitle,deleteTask,resetList,swapList,resetTask,swapTask,bringTask} = props;
     const handleSubmit = (e)=>{
         e.preventDefault();
         if(text){
@@ -61,6 +61,10 @@ function Board(props) {
                                   key={list.listid}
                                   resetList={resetList}
                                   swapList={swapList}
+                                  resetTask={resetTask}
+                                  swapTask={swapTask}
+                                  bringTask={bringTask}
+                                  taskslength={list.tasks.length}
                                   />}):""}
             {boardcheck&&globalcheck?
                     <Form onSubmit={handleSubmit} >

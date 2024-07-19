@@ -9,6 +9,7 @@ import { FiEdit2 } from "react-icons/fi";
 import { CgMathPlus } from "react-icons/cg";
 import { FaXmark } from "react-icons/fa6";
 import { useDrag,useDrop } from "react-dnd";
+import { ItemTypes } from "./ItemTypes";
 
 
 
@@ -38,7 +39,7 @@ flex-shrink:0;
 function Card(props) {
     const [content,setContent]=useState("");
     const [newTitle,setNewTitle]=useState("");
-    const {lists,addChecker,focusChecker,addTask,globalcheck,setGlobalCheck,boardcheck,setBoardCheck,editTaskChecker,editTask,deleteList,editListTitle,deleteTask,cardid,cardindex,focuscheck,addcheck,title,tasks,resetList,swapList}=props;
+    const {addChecker,focusChecker,addTask,globalcheck,setGlobalCheck,boardcheck,setBoardCheck,editTaskChecker,editTask,deleteList,editListTitle,deleteTask,cardid,cardindex,focuscheck,addcheck,title,tasks,resetList,swapList,resetTask,swapTask,bringTask,taskslength}=props;
    
     const cardRef=useRef(null);
 
@@ -58,18 +59,22 @@ function Card(props) {
       }
     }
     const [,drop]=useDrop({
-      accept:"CARD",
+      accept:[ItemTypes.CARD,ItemTypes.TASK],
       hover(item){
-        if(item.cardindex!==cardindex){
-          swapList(item.cardindex,cardindex,item.cardid);
+        if(item.cardindex!==cardindex && item.type===ItemTypes.CARD){
+          swapList(cardindex,item.cardid);
           item.cardindex=cardindex;
+        }else if (item.sourceid!==cardid&&item.type===ItemTypes.TASK&&taskslength===0){
+          bringTask(cardindex,cardid,item.sourceid,item.id,item.taskindex)
+          item.sourceid=cardid
+          
         }
       },
     })
 
     const [{isDragging},drag]=useDrag({
-      type:"CARD",
-      item:{cardid,cardindex},
+      type:ItemTypes.CARD,
+      item:{cardid,cardindex,type:ItemTypes.CARD},
       collect:(monitor)=>({
         isDragging:!!monitor.isDragging()})
     })
@@ -104,8 +109,12 @@ function Card(props) {
                                 <h2 style={{display:"flex",width:"220px",height:"fit-content",overflowWrap:"anywhere",overflow:"hidden",margin:"0",fontSize:"14px"}}>{title}</h2>
                           </div>
                           }
-                          <Task id={cardid}
-                                lists={lists}
+                          {tasks.map((task,index)=>{return <Task id={task.taskid}
+                                taskindex={index}
+                                key={task.taskid}
+                                content={task.content}
+                                editcheck={task.editcheck}
+                                sourceid={cardid}
                                 globalcheck={globalcheck}
                                 setGlobalCheck={setGlobalCheck}
                                 boardcheck={boardcheck}
@@ -113,7 +122,12 @@ function Card(props) {
                                 editTaskChecker={editTaskChecker} 
                                 editTask={editTask}
                                 deleteTask={deleteTask}
+                                resetTask={resetTask}
+                                swapTask={swapTask}
+                                cardindex={cardindex}
                                 />
+                        })
+                        }
                           {addcheck && !focuscheck && !globalcheck && !boardcheck? 
                               <Form  name="card-child" onSubmit={handleSubmit}>
                                   <TextArea type="text" 

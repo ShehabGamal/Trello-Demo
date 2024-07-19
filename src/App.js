@@ -63,7 +63,7 @@ function App() {
 
 
   const addTask = (content,listid)=>{
-    const newTask={taskid:Math.random()*4,sourceid:listid,content,editcheck:false};
+    const newTask={taskid:Math.random()*4,content,editcheck:false};
     const updateList =lists.map((list)=>{
       if(list.listid === listid && content){
         list.tasks.push(newTask);
@@ -129,14 +129,67 @@ const editTaskChecker=(taskid)=>{
     setLists(updateList)
   }
 
-const swapList=(fromIndex,toIndex,cardid)=>{
-  const updatedList = lists.filter((list)=>{return list.listid!==cardid});
+const swapList=(toIndex,cardid)=>{
+  const updateList = lists.filter((list)=>{return list.listid!==cardid});
   const [currentList]= lists.filter((list)=>{return list.listid===cardid});
-  updatedList.splice(toIndex,0,currentList);
-  setLists(updatedList)
+  updateList.splice(toIndex,0,currentList);
+  setLists(updateList)
   
 }
+const resetTask =(listid,taskid)=>{
+   const updateList = lists.map((list)=>{
+    if(listid!==list.listid){
+      list.tasks.map((task)=>{
+        if(taskid!==task.taskid){
+          task.editcheck=false
+        }
+        return task
+      })
+    }
+    return list
+   })
+   setLists(updateList)
+}
+const swapTask=(toIndex,cardid,taskid,cardindex)=>{
+  
+  const [currentListObj]=lists.filter((list)=>{return list.listid===cardid})
+  const currentListValues=Object.values(currentListObj)
+  const [currentTasksArray]=currentListValues.filter((item)=>{return Array.isArray(item)})
+  const [currentTaskObj]=currentTasksArray.filter((task)=>{return taskid===task.taskid})
+ 
+  const updateList=lists.map((list)=>{
+      if(list.listid===cardid){
+        const tasks = list.tasks.filter((task)=>{return task.taskid!==taskid})
+        list.tasks=tasks
+      } 
+      return list
+      });
+  
+      if (updateList[cardindex]) {
+        updateList[cardindex]["tasks"].splice(toIndex, 0, currentTaskObj);
+      } 
+  setLists(updateList) 
+}
+const bringTask=(toIndex,cardid,sourceid,taskid,taskindex)=>{
+  
+  const [currentListObj]=lists.filter((list)=>{return list.listid===sourceid})
+  const currentListValues=Object.values(currentListObj)
+  const [currentTasksArray]=currentListValues.filter((item)=>{return Array.isArray(item)})
+  const [currentTaskObj]=currentTasksArray.filter((task)=>{return taskid===task.taskid})
+  
+  const updateList=lists.map((list)=>{
+    if(list.listid===sourceid){
+      list.tasks.splice(taskindex,1)
+    }
+    if(list.listid===cardid){
+      list.tasks.splice(toIndex,0,currentTaskObj)     
+    }
+    return list
+  })
 
+  setLists(updateList)
+  
+}
   return (
     <Board lists={lists}
            addList={addList}
@@ -150,6 +203,9 @@ const swapList=(fromIndex,toIndex,cardid)=>{
            deleteTask={deleteTask}
            resetList={resetList}
            swapList={swapList}
+           resetTask={resetTask}
+           swapTask={swapTask}
+           bringTask={bringTask}
            />
   );
 }

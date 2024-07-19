@@ -1,12 +1,13 @@
 import styled from "styled-components"
-import { useState } from "react";
+import { useState,useRef } from "react";
 import Form from "../SubComponents/Form";
 import TextArea from "../SubComponents/TextArea";
 import PrimaryButton from "../SubComponents/PrimaryButton";
 import SecondaryButton from "../SubComponents/SecondaryButton";
 import { FiEdit2 } from "react-icons/fi";
 import { FaXmark } from "react-icons/fa6";
-
+import {useDrag,useDrop} from "react-dnd"
+import { ItemTypes } from "./ItemTypes";
 
 
 
@@ -31,38 +32,53 @@ font-family: 'Montserrat', sans-serif;
 
 function Task(props) {
     const [text,setText]=useState("");
-    const {id,lists,globalcheck,setGlobalCheck,boardcheck,setBoardCheck,editTaskChecker,editTask,deleteTask}=props;
-    
+    const {id,content,editcheck,sourceid,globalcheck,setGlobalCheck,boardcheck,setBoardCheck,editTaskChecker,editTask,deleteTask,resetTask,taskindex,swapTask,cardindex}=props;
+    const taskRef=useRef(null)
 
     const handleSubmit = (z,taskid)=>{
         z.preventDefault();
         if(text){
-        editTask(text,parseFloat(taskid));
+        editTask(text,parseFloat(taskid));  
         }
         setText("");
       }
     
-
-    const preview= lists.map((list)=>{
-        if(list.listid===id){
-            return list.tasks.map((task)=>{
-                if(task.sourceid===id){
-                    return <div key={task.taskid} id={task.taskid}>{task.editcheck&&!globalcheck&&!boardcheck ? <Form name="task-child" onSubmit={handleSubmit}>
-                                                                    <TextArea defaultValue={task.content} autoFocus onBlur={()=>{task.editcheck=false}} onChange={(e)=>{if(e.target.value){setText(e.target.value)}}}/>
-                                                                    <PrimaryButton type="submit" id={task.taskid} onClick={(z)=>{handleSubmit(z,z.target.id);setGlobalCheck(true)}}>Save</PrimaryButton>
+      const [, drop] = useDrop({
+        accept: ItemTypes.TASK,
+        hover(item) {
+          if(item.id!==id){
+            swapTask(taskindex,item.sourceid,item.id,cardindex)
+            item.taskindex=taskindex
+            item.sourceid=sourceid
+            
+          }
+        },
+      });
+    
+      const [{ isDragging }, drag] = useDrag({
+        type: ItemTypes.TASK,
+        item: { id, taskindex ,sourceid,type:ItemTypes.TASK},
+        collect: (monitor) => ({
+          isDragging: !!monitor.isDragging(),
+        }),
+      });
+    
+      drag(drop(taskRef));
+      
+    const preview=<div key={id} id={id} ref={taskRef} style={{opacity:isDragging?0.5:1}}>{editcheck&&!globalcheck&&!boardcheck ? <Form name="task-child" onSubmit={handleSubmit}>
+                                                                    <TextArea defaultValue={content} autoFocus onBlur={()=>{resetTask(sourceid,id)}} onChange={(e)=>{if(e.target.value){setText(e.target.value)}}}/>
+                                                                    <PrimaryButton type="submit" onClick={(z)=>{handleSubmit(z,id);setGlobalCheck(true)}}>Save</PrimaryButton>
                                                                   </Form>
                                                     :<Display>
                                                     <div style={{display:"flex",padding:"6px",gap:"2px",flexFlow:"column wrap"}}>
-                                                        <p style={{display:"flex",width:"220px",height:"fit-content",overflowWrap:"anywhere",overflow:"hidden",margin:"0"}}>{task.content}</p>
+                                                        <p style={{display:"flex",width:"220px",height:"fit-content",overflowWrap:"anywhere",overflow:"hidden",margin:"0"}}>{content}</p>
                                                         <div style={{display:"flex",flexFlow:"row wrap",justifyContent:"flex-end",alignItems:"flex-end",paddingTop:"2px",gap:"2px"}}>   
-                                                            <SecondaryButton name="task-child"  type="button" onClick={()=>{setGlobalCheck(false);setBoardCheck(false);editTaskChecker(task.taskid)}}><FiEdit2 /></SecondaryButton>
-                                                            <SecondaryButton name="task-child"  type="button" onClick={()=>{deleteTask(id,task.taskid)}}><FaXmark /></SecondaryButton>
+                                                            <SecondaryButton name="task-child"  type="button" onClick={()=>{setGlobalCheck(false);setBoardCheck(false);editTaskChecker(id)}}><FiEdit2 /></SecondaryButton>
+                                                            <SecondaryButton name="task-child"  type="button" onClick={()=>{deleteTask(sourceid,id)}}><FaXmark /></SecondaryButton>
                                                         </div>  
                                                     </div>
                                                     </Display>
-                                                    }</div>}else{return undefined}}
-            )}else{return undefined};
-});
+                                                    }</div>
 
     return (
         <>
