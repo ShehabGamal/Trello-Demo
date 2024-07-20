@@ -5,12 +5,26 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
+import { TouchBackend } from 'react-dnd-touch-backend';
+import { MultiBackend,TouchTransition } from 'dnd-multi-backend';
 
-
+const HTML5toTouch = {
+  backends: [
+      {
+          backend: HTML5Backend,
+      },
+      {
+          backend: TouchBackend,
+          options: { enableMouseEvents: true }, // Enable mouse events for better compatibility
+          preview: true,
+          transition: TouchTransition,
+      },
+  ],
+};
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider backend={MultiBackend} options={HTML5toTouch}>
     <App />
     </DndProvider>
   </React.StrictMode>
