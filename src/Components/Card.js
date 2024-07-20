@@ -47,7 +47,9 @@ function Card(props) {
     const handleSubmit = (z,cardid)=>{
       z.preventDefault();
       addTask(content,cardid);
-      setGlobalCheck(false);
+      addChecker(cardid);
+      setGlobalCheck(true);
+      setBoardCheck(false);
       setContent("");
     }
     const handleChange=(cardid)=>{
@@ -96,6 +98,7 @@ function Card(props) {
                                onChange={(z)=>{setNewTitle(z.target.value)}}
                                onBlur={()=>{focusChecker(cardid)}}
                                name="card-child"
+                               onKeyDown={(e)=>{if(e.code==="Enter"){handleChange(cardid)}}}
                                autoFocus                                                  
                               />
                               <PrimaryButton type="button" onClick={()=>{handleChange(cardid);}}>Save</PrimaryButton>
@@ -133,16 +136,14 @@ function Card(props) {
                                   <TextArea type="text" 
                                             placeholder="Enter Your Task..."
                                             onChange={(e)=>{setContent(e.target.value)}}
+                                            onKeyDown={(e)=>{if(e.code==="Enter"&&content){handleSubmit(e,cardid)}}}
                                             name="card-child"
                                             autoFocus
                                             />
                                   <div style={{display:"flex",gap:"4px"}}>
                                       <PrimaryButton type="submit"
                                             id={cardid} 
-                                            onClick={(z)=>{if(content){handleSubmit(z,cardid)};
-                                                            addChecker(cardid);
-                                                            setGlobalCheck(true);
-                                                            setBoardCheck(false);}}>Add Task</PrimaryButton>
+                                            onClick={(z)=>{if(content){handleSubmit(z,cardid)};}}>Add Task</PrimaryButton>
                                       <SecondaryButton type="button"
                                             onClick={()=>{addChecker(cardid);
                                                           setGlobalCheck(true);

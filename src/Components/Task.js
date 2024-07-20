@@ -66,7 +66,12 @@ function Task(props) {
       drag(drop(taskRef));
       
     const preview=<div key={id} id={id} ref={taskRef} style={{opacity:isDragging?0.5:1}}>{editcheck&&!globalcheck&&!boardcheck ? <Form name="task-child" onSubmit={handleSubmit}>
-                                                                    <TextArea defaultValue={content} autoFocus onBlur={()=>{resetTask(sourceid,id)}} onChange={(e)=>{if(e.target.value){setText(e.target.value)}}}/>
+                                                                    <TextArea defaultValue={content}
+                                                                              autoFocus
+                                                                              onBlur={()=>{resetTask(sourceid,id)}}
+                                                                              onChange={(e)=>{if(e.target.value){setText(e.target.value)}}}
+                                                                              onKeyDown={(e)=>{if(e.code==="Enter"&&text){handleSubmit(e,id);setGlobalCheck(true)}}}
+                                                                              />
                                                                     <PrimaryButton type="submit" onClick={(z)=>{handleSubmit(z,id);setGlobalCheck(true)}}>Save</PrimaryButton>
                                                                   </Form>
                                                     :<Display>

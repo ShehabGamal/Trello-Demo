@@ -19,7 +19,7 @@ min-height: calc( 100vh - 0.4rem );
 min-width: calc( 100vw - 0.4rem );
 align-content:start;
 padding:0.2rem;
-background-image: linear-gradient(270deg, black , grey);
+background:#00aecc;
 font-family: 'Montserrat', sans-serif;
 flex-shrink:0;
 scroll-behavior: smooth;
@@ -35,6 +35,9 @@ function Board(props) {
         if(text){
         addList(text);
         setText("");
+        setBoardCheck(false)
+        setGlobalCheck(false);
+        lists.map((list)=>{return list.addcheck=false;})
         }
     }
     return (
@@ -68,9 +71,9 @@ function Board(props) {
                                   />}):""}
             {boardcheck&&globalcheck?
                     <Form onSubmit={handleSubmit} >
-                        <TextArea type="text"  placeholder="Enter List Name..." dir="auto" maxLength="512" onChange={(e)=>{setText(e.target.value)}} autoFocus/>
+                        <TextArea type="text"  placeholder="Enter List Name..." dir="auto" maxLength="512" onChange={(e)=>{setText(e.target.value)}} onKeyDown={(e)=>{if(e.code==="Enter"&&text){handleSubmit(e)}}} autoFocus/>
                         <div style={{display:"flex",gap:"4px"}}>
-                        <PrimaryButton type="submit" onClick={(e)=>{if(text){handleSubmit(e);setBoardCheck(false)};setGlobalCheck(false);lists.map((list)=>{return list.addcheck=false;});}}>Add List</PrimaryButton>
+                        <PrimaryButton type="submit" onClick={(e)=>{if(text){handleSubmit(e);}}}>Add List</PrimaryButton>
                         <SecondaryButton type="button" onClick={()=>{setBoardCheck(false);setGlobalCheck(true);}}><FaXmark /></SecondaryButton>
                         </div>
                     </Form>
