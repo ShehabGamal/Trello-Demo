@@ -10,10 +10,12 @@ import { MultiBackend,TouchTransition } from 'dnd-multi-backend';
 
 const HTML5toTouch = {
   backends: [
-      {
+      {   
+          id:1,
           backend: HTML5Backend,
       },
       {
+          id:2,
           backend: TouchBackend,
           options: { enableMouseEvents: true }, // Enable mouse events for better compatibility
           preview: true,
