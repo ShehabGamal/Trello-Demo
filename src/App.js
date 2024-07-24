@@ -2,6 +2,10 @@
 //import { useState } from 'react';
 import Board from './Components/Board';
 import useLocalStorage from './Local Storage Hook/LocalStorage';
+import Introduction from './Components/Introduction';
+import Notfound from './Components/Notfound';
+import { Routes, Route } from 'react-router-dom';
+;
 
 function App() {
   //const [lists,setLists]=useState([]);
@@ -191,23 +195,30 @@ const bringTask=(toIndex,cardid,sourceid,taskid,taskindex)=>{
   
 }
   return (
-    <Board lists={lists}
-           addList={addList}
-           addChecker={addChecker}
-           focusChecker={focusChecker}
-           addTask={addTask}
-           editTaskChecker={editTaskChecker}
-           editTask={editTask}
-           deleteList={deleteList}
-           editListTitle={editListTitle}
-           deleteTask={deleteTask}
-           resetList={resetList}
-           swapList={swapList}
-           resetTask={resetTask}
-           swapTask={swapTask}
-           bringTask={bringTask}
-           />
+    <>
+        <Routes>
+            <Route path="/" element={<Introduction/>}/>  
+            <Route path="/workspace" element={<Board lists={lists}
+                                                     addList={addList}
+                                                     addChecker={addChecker}
+                                                     focusChecker={focusChecker}
+                                                     addTask={addTask}
+                                                     editTaskChecker={editTaskChecker}
+                                                     editTask={editTask}
+                                                     deleteList={deleteList}
+                                                     editListTitle={editListTitle}
+                                                     deleteTask={deleteTask}
+                                                     resetList={resetList}
+                                                     swapList={swapList}
+                                                     resetTask={resetTask}
+                                                     swapTask={swapTask}
+                                                     bringTask={bringTask}
+                                                   />}/>
+            <Route path="/*" element={<Notfound/>}/>                                           
+        </Routes>   
+    </>       
   );
+  
 }
 
 export default App;

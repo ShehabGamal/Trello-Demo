@@ -8,12 +8,12 @@ import TextArea from '../SubComponents/TextArea.jsx';
 import CreateList from '../SubComponents/CreatelistButton.jsx';
 import { CgMathPlus } from "react-icons/cg";
 import { FaXmark } from "react-icons/fa6";
-
+import NavBar from './NavBar.js';
 
 const Body=styled.div`
 display:inline-flex;
 justify-content:flex-start;
-flex-flow:row nowrap;
+flex-flow:column nowrap;
 gap:0.5rem;
 min-height: calc( 100vh - 0.4rem );
 min-width: calc( 100vw - 0.4rem );
@@ -42,6 +42,8 @@ function Board(props) {
     }
     return (
         <Body>
+            <NavBar name="board"/>
+            <div style={{display:"flex",flexFlow:"row nowrap",gap:"0.5rem"}}>
             {lists.length>0?lists.map((list,index)=>{return <Card lists={lists}
                                   focusChecker={focusChecker}
                                   addChecker={addChecker} 
@@ -82,6 +84,7 @@ function Board(props) {
                                           setGlobalCheck(true);
                                           }}><span style={{marginRight:"8px",fontSize:"20px"}}><CgMathPlus />
                                           </span>Add {lists.length>0?"another":"a"} list</CreateList>}
+            </div>                              
         </Body>
     );
   }
