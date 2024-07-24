@@ -10,14 +10,15 @@ Welcome to the Trello Demo documentation. This project demonstrates a simplified
 - **Add Tasks**: Add tasks to specific lists to track work items.
 - **Delete Tasks**: Remove tasks that are completed or no longer necessary.
 - **Edit Tasks**: Update the details of existing tasks.
-- **Drag & Drop**:  
+- **Drag & Drop**:  Update lists & tasks position based on priority and preference.
 
 ## Technologies and Libraries Used
 
 - **React**: A JavaScript library for building user interfaces..
 - **React-DnD**: Drag and Drop for Lists & Tasks.
 - **Styled Components**: Visual primitives for the components.
-- **React Router**: Client-side Routing
+- **React Router**: Provide Client-side Routing.
+- **React Icons**: Provide popular icons for react projects.
 
 ## Setup Instructions
 
