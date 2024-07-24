@@ -1,70 +1,79 @@
-# Getting Started with Create React App
+# Trello Demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Welcome to the Trello Demo documentation. This project demonstrates a simplified version of Trello, showcasing my skills in front-end development and user interaction design. The demo allows users to add, delete, and edit lists and tasks, mimicking the core functionalities of Trello.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Add Lists**: Create new lists to organize your tasks.
+- **Delete Lists**: Remove lists that are no longer needed.
+- **Edit Lists**: Modify the titles of existing lists.
+- **Add Tasks**: Add tasks to specific lists to track work items.
+- **Delete Tasks**: Remove tasks that are completed or no longer necessary.
+- **Edit Tasks**: Update the details of existing tasks.
+- **Drag & Drop**:  
 
-### `npm start`
+## Technologies and Libraries Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: A JavaScript library for building user interfaces..
+- **React-DnD**: Drag and Drop for Lists & Tasks.
+- **Styled Components**: Visual primitives for the components.
+- **React Router**: Client-side Routing
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Setup Instructions
 
-### `npm test`
+To set up the Trello demo locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the Repository**
+   ```sh
+   git clone https://github.com/your-username/trello-demo.git
+   cd trello-demo
+2. **Install Dependencies**
+   ```sh
+   npm install
+3. **Start the Development Server**
+   ```sh
+   npm start
+4. **Open in Browser**
+  Open your web browser and go to http://localhost:3000 to see the Trello demo in action.
 
-### `npm run build`
+## Usage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Adding a List
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Click the "Add List" button at the end of the lists section.
+2. Enter a name for the new list and press "Enter" or click "Save".
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Deleting a List
 
-### `npm run eject`
+1. Hover over the list you want to delete.
+2. Click the "Delete" icon that appears on the list header.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Editing a List
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+1. Hover over the list you want to edit.
+2. Click the "Edit" icon on the list header.
+3. Enter the new name for the list and press "Enter" or click "Save".
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### Adding a Task
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+1. Click the "Add Task" button at the bottom of the list you want to add a task to.
+2. Enter the task details and press "Enter" or click "Save".
 
-## Learn More
+### Deleting a Task
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Hover over the task you want to delete.
+2. Click the "Delete" icon that appears on the task.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Editing a Task
 
-### Code Splitting
+1. Hover over the task you want to edit.
+2. Click the "Edit" icon on the task.
+3. Update the task details and press "Enter" or click "Save".
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Additional Information
 
-### Analyzing the Bundle Size
+- **Author**: Shehab Gamal
+- **Contact**: [shehab.gamal333@gmail.com]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
